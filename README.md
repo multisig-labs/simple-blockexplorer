@@ -7,24 +7,6 @@ This blockexplorer is a client-only (i.e. serverless) block explorer, where the 
 - Custom known addresses for better UX.
 - Light & dark theme support.
 
-Here are some example RPC urls and chain IDs
-
-```md
-## Hardhat Local
-
-http://localhost:8545
-31337
-
-## Avalanche
-
-https://api.avax.network/ext/bc/C/rpc
-43114
-
-## Polygon
-
-https://polygon-rpc.com
-137
-```
 
 ## Usage
 
@@ -48,3 +30,22 @@ The connected node must support the following:
 - [`eth_getLogs`](https://eth.wiki/json-rpc/API#eth_getlogs)
 
 Inspired from [blockscout](https://docs.blockscout.com/for-developers/information-and-settings/node-tracing-json-rpc-requirements).
+
+# Misc
+I looked through different options for block explorers -> Seems like there's 2 different main kinds. 
+* One that has an indexer and has a kinda complex setup and needs infra
+	* BlockScout -  ($600/mo for their lowest production plan lol). For self hosting, setting up the infra seems like a pain. 
+	* Explorer as a service providers
+* RPC only (slow but needs no infra)
+	* Expedition - seems to be dead? Not updated for years
+	* Simple Block explorer (https://github.com/erhant/simple-blockexplorer) what I decided to start with.
+	* Had trouble finding other options for RPC only
+
+
+
+## How to use
+How it works: Can pass in any l1 RPC url for the block explorer. The frontend gets the RPC url from the query params and sets it in context. Currently only accepts the RPC query param on the `/` route but could be easily changed. 
+https://l1-explorer.vercel.app/?rpc=https://node.l1marketplace.com/ext/bc/5mEwEcPTRnezL4asCZSRx1ED1XB5dx8UyQNnuSWGR21C3awzB/rpc
+
+
+Repo: https://github.com/multisig-labs/simple-blockexplorer
