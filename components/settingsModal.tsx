@@ -15,7 +15,7 @@ const SettingsModal: FC = () => {
   async function handleConnect() {
     setHasError(false);
     setIsLoading(true);
-    const success = await updateClient(rpcUrlInput, chainIdInput);
+    const success = await updateClient(rpcUrlInput);
     setIsLoading(false);
     if (!success) {
       setHasError(true);

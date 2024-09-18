@@ -4,11 +4,11 @@ import {RPCClient} from '../api/rpc';
 
 type ClientContextType = {
   client: RPCClient;
-  updateClient: (rpcUrl: string, chainId: number) => Promise<boolean>;
+  updateClient: (rpcUrl: string) => Promise<boolean>;
 };
 const defaults: ClientContextType = {
   client: new RPCClient('http://localhost:8545', 31337), // default client
-  updateClient: async (rpcUrl: string, chainId: number) => false, // dummy function
+  updateClient: async (rpcUrl: string) => false, // dummy function
 };
 const ClientContext = createContext<ClientContextType>(defaults);
 
@@ -18,7 +18,7 @@ export const ClientContextWrapper: FC<{children: ReactNode}> = ({children}) => {
     <ClientContext.Provider
       value={{
         client,
-        updateClient: async (rpcUrl: string, chainId: number) => {
+        updateClient: async (rpcUrl: string) => {
           try {
             const res = await axios.post(rpcUrl, {
               jsonrpc: '2.0',
@@ -28,12 +28,8 @@ export const ClientContextWrapper: FC<{children: ReactNode}> = ({children}) => {
             });
             // console.log(res);
             const responseChainId = parseInt(res.data.result);
-            if (chainId == responseChainId) {
-              setClient(new RPCClient(rpcUrl, chainId));
-              return true;
-            } else {
-              return false;
-            }
+            setClient(new RPCClient(rpcUrl, responseChainId));
+            return true;
           } catch (err) {
             return false;
           }

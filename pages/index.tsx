@@ -15,13 +15,13 @@ const Home: NextPage = () => {
   const [latestBlocks, setLatestBlocks] = useState<BlockType[]>();
   const [latestTxs, setLatestTxs] = useState<TxType[]>();
   const router = useRouter();
-  const {rpc, chain} = router.query;
+  const {rpc} = router.query;
   useEffect(() => {
     const update = async () => {
-      const success = await updateClient(rpc as string, parseInt(chain as string));
+      const success = await updateClient(rpc as string);
     };
-    if (rpc && chain) update();
-  }, [updateClient, rpc, chain]);
+    if (rpc) update();
+  }, [updateClient, rpc]);
 
   // console.log(latestTxs);
   useEffect(() => {
