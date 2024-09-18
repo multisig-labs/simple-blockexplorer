@@ -14,14 +14,6 @@ const Home: NextPage = () => {
   const [error, setError] = useState<any>();
   const [latestBlocks, setLatestBlocks] = useState<BlockType[]>();
   const [latestTxs, setLatestTxs] = useState<TxType[]>();
-  const router = useRouter();
-  const {rpc} = router.query;
-  useEffect(() => {
-    const update = async () => {
-      const success = await updateClient(rpc as string);
-    };
-    if (rpc) update();
-  }, [updateClient, rpc]);
 
   // console.log(latestTxs);
   useEffect(() => {

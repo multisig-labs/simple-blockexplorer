@@ -22,13 +22,7 @@ const Address: NextPage = () => {
     }
   }, [address, router, client]);
 
-  if (error)
-    return (
-      <Layout>
-        <Title>Something went wrong.</Title>
-      </Layout>
-    );
-  else return <Layout>{addr ? <AddrViewFull addr={addr} /> : <Loader />}</Layout>;
+  return <Layout>{addr ? <AddrViewFull addr={addr} /> : <Loader />}</Layout>;
 };
 
 export default Address;
