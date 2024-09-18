@@ -34,6 +34,7 @@ const SettingsModal: FC = () => {
             onChange={event => setRpcUrlInput(event.currentTarget.value)}
           />
           <NumberInput
+            disabled
             label={<Title order={5}>Chain ID</Title>}
             description={'Current: ' + client.chainId}
             hideControls
