@@ -7,12 +7,21 @@ import BlockViewCompactTable from '../components/blockViewCompact';
 import TxViewCompactTable from '../components/txViewCompact';
 import Link from 'next/link';
 import {useClientContext} from '../context/client.context';
+import {useRouter} from 'next/router';
 
 const Home: NextPage = () => {
-  const {client} = useClientContext();
+  const {client, updateClient} = useClientContext();
   const [error, setError] = useState<any>();
   const [latestBlocks, setLatestBlocks] = useState<BlockType[]>();
   const [latestTxs, setLatestTxs] = useState<TxType[]>();
+  const router = useRouter();
+  const {rpc, chain} = router.query;
+  useEffect(() => {
+    const update = async () => {
+      const success = await updateClient(rpc as string, parseInt(chain as string));
+    };
+    if (rpc && chain) update();
+  }, [updateClient, rpc, chain]);
 
   // console.log(latestTxs);
   useEffect(() => {

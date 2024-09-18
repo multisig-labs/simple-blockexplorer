@@ -1,6 +1,6 @@
 import type {AppProps} from 'next/app';
 import Head from 'next/head';
-import {ClientContextWrapper} from '../context/client.context';
+import {ClientContextWrapper, useClientContext} from '../context/client.context';
 import {useState, useEffect} from 'react';
 import {MantineProvider, ColorScheme, ColorSchemeProvider} from '@mantine/core';
 import {CookieValueTypes} from 'cookies-next/lib/types';
@@ -8,6 +8,7 @@ import {getCookie, setCookies} from 'cookies-next';
 
 function App(props: AppProps & {colorScheme: ColorScheme}) {
   const {Component, pageProps} = props;
+
   const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
 
   const toggleColorScheme = (value?: ColorScheme) => {
