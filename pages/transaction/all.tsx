@@ -22,6 +22,7 @@ const AllTxs: NextPage = () => {
       setIsLoading(false);
     });
   }
+  // console.log('client', {client});
 
   return (
     <Layout>
