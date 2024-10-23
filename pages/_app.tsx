@@ -6,6 +6,7 @@ import {MantineProvider, ColorScheme, ColorSchemeProvider} from '@mantine/core';
 import {CookieValueTypes} from 'cookies-next/lib/types';
 import {getCookie, setCookies} from 'cookies-next';
 import RpcWrapper from './RpcWrapper';
+import 'styles/globals.css';
 
 function App(props: AppProps & {colorScheme: ColorScheme}) {
   const {Component, pageProps} = props;
