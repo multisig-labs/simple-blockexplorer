@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.main-table {
+    @apply rounded-lg border border-white bg-white text-left
+}
+
+.table-header {
+    @apply text-sm text-black border-b;
+  }
+
+.table-header-cell {
+    @apply flex justify-center my-2
+}
+
+.table-hash-link {
+    @apply flex justify-center items-center font-mono text-primary-600
+}
+
+.table-content {
+    @apply flex justify-center items-center
+}

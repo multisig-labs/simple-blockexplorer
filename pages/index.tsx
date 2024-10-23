@@ -7,7 +7,6 @@ import BlockViewCompactTable from '../components/blockViewCompact';
 import TxViewCompactTable from '../components/txViewCompact';
 import Link from 'next/link';
 import {useClientContext} from '../context/client.context';
-import {useRouter} from 'next/router';
 
 const Home: NextPage = () => {
   const {client, updateClient} = useClientContext();
@@ -29,36 +28,18 @@ const Home: NextPage = () => {
   return (
     <Layout>
       {latestBlocks == undefined || latestTxs == undefined ? (
-        <Loader />
+        <div className="flex h-[80vh] flex-col items-center justify-center">
+          <div className="text-2xl font-bold">Loading...</div>
+        </div>
       ) : (
-        <SimpleGrid
-          cols={2}
-          spacing="lg"
-          sx={theme => ({
-            minWidth: theme.breakpoints.lg,
-          })}
-        >
-          <Stack>
+        <div className="mt-16 grid grid-cols-1 gap-24 mx-24">
+          <div className="flex flex-col justify-center gap-8">
             <BlockViewCompactTable blocks={latestBlocks} />
-            <Link href={'/block/all'} passHref>
-              <Anchor>
-                <Title order={4} sx={{textAlign: 'center'}}>
-                  See all Blocks
-                </Title>
-              </Anchor>
-            </Link>
-          </Stack>
-          <Stack>
+          </div>
+          <div className="flex flex-col gap-8">
             <TxViewCompactTable txs={latestTxs} />
-            <Link href={'/transaction/all'} passHref>
-              <Anchor>
-                <Title order={4} sx={{textAlign: 'center'}}>
-                  See all Transactions
-                </Title>
-              </Anchor>
-            </Link>
-          </Stack>
-        </SimpleGrid>
+          </div>
+        </div>
       )}
     </Layout>
   );

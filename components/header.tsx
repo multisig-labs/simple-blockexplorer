@@ -1,29 +1,21 @@
-import {Box, Container, Text, Group} from '@mantine/core';
 import Link from 'next/link';
 import {FC} from 'react';
 import SearchBar from './searchBar';
 import SettingsModal from './settingsModal';
-import ThemeToggle from './themeToggle';
 
 const Header: FC = () => {
   return (
-    <Box component="header" py="md">
-      <Container>
-        <Group align="center">
-          <Text sx={{fontSize: '1.5em', fontWeight: 800}}>
-            <Link href="/">SBE 👓</Link>
-          </Text>
-          <div className="font-bold text-2xl">Meow</div>
-
-          {/* pushes the succeeding contents to the right */}
-          <span style={{flexGrow: 1}} />
-
+    <div className="flex flex-row w-full justify-center">
+      <div className="flex flex-row w-full justify-between mx-24 my-4">
+        <div className="text-2xl font-bold w-[30%] flex flex-row">
+          <Link href="/">SBE 👓</Link>
+        </div>
+        <div className="w-full flex flex-row items-center justify-end">
           <SearchBar />
           <SettingsModal />
-          <ThemeToggle />
-        </Group>
-      </Container>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 
