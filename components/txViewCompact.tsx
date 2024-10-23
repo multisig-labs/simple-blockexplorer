@@ -6,6 +6,7 @@ import {addressToKnownAddress, truncateHex} from '../utilities';
 import LinkableString from './linkableString';
 
 const TxViewCompactTable: FC<{txs: TxType[]}> = ({txs}) => {
+  console.log({txs});
   return (
     <Table verticalSpacing={3} highlightOnHover captionSide="top" fontSize="lg">
       <caption>
@@ -17,6 +18,7 @@ const TxViewCompactTable: FC<{txs: TxType[]}> = ({txs}) => {
           <th>From</th>
           <th>To</th>
           <th>Block</th>
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>
@@ -53,6 +55,7 @@ const TxViewCompactRow: FC<{tx: TxType}> = ({tx}) => {
           <Button variant="light">{tx.blockNumber}</Button>
         </Link>
       </td>
+      <td>{tx.timestamp?.toLocaleString() || '-'}</td>
     </tr>
   );
 };
