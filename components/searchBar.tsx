@@ -1,8 +1,6 @@
-import {TextInput, ActionIcon} from '@mantine/core';
-import Link from 'next/link';
 import {FC, useEffect, useState} from 'react';
-import {IconSearch} from '@tabler/icons';
 import {useClientContext} from '../context/client.context';
+import {BiSearch} from 'react-icons/bi';
 
 const SearchBar: FC = () => {
   const {client} = useClientContext();
@@ -35,22 +33,17 @@ const SearchBar: FC = () => {
   }, [input]);
 
   const isDisabled = href == '';
-  // console.log(href);
 
   return (
-    <TextInput
-      sx={{width: '60%'}}
-      placeholder="address / block hash / block height / transaction hash"
-      value={input}
-      onChange={event => setInput(event.currentTarget.value)}
-      rightSection={
-        <Link href={href} passHref>
-          <ActionIcon disabled={isDisabled}>
-            <IconSearch size={18} />
-          </ActionIcon>
-        </Link>
-      }
-    />
+    <div className="relative w-[60%]">
+      <input
+        placeholder="address / block hash / block height / transaction hash"
+        value={input}
+        onChange={event => setInput(event.currentTarget.value)}
+        className="w-full p-1 rounded-full border-primary-50 border-[1px]"
+      />
+      <BiSearch className="absolute right-[10px] top-[10px]" />
+    </div>
   );
 };
 

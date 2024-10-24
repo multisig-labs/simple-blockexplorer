@@ -21,3 +21,7 @@
 .table-content {
     @apply flex justify-center items-center
 }
+
+.primary-button {
+    @apply bg-primary-600 text-white rounded-full w-[150px] hover:bg-primary-700
+}
