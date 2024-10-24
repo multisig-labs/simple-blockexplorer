@@ -29,11 +29,11 @@ const Home: NextPage = () => {
       {latestBlocks == undefined || latestTxs == undefined ? (
         <Loader />
       ) : (
-        <div className=" grid grid-cols-1 gap-8 lg:gap-24 ">
-          <div className="flex flex-col justify-center gap-8">
+        <div className=" grid grid-cols-1 gap-8 lg:gap-16 ">
+          <div className="flex flex-col justify-center">
             <BlockViewCompactTable blocks={latestBlocks} />
           </div>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col">
             <TxViewCompactTable txs={latestTxs} />
           </div>
         </div>
