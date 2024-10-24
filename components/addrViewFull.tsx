@@ -13,14 +13,14 @@ const AddrViewFull: FC<{addr: AddrType}> = ({addr}) => {
   let data: [string, ReactNode][] = [
     [
       'Name',
-      <div className="table-hash-link">
+      <div className="table-hash-link" key={addr.address}>
         {addressToKnownAddress(addr.address)}
         <ClipboardCopyButton str={addr.address} />
       </div>,
     ],
     [
       'Address',
-      <div className="table-hash-link">
+      <div className="table-hash-link" key={addr.address}>
         {addr.address}
         <ClipboardCopyButton str={addr.address} />
       </div>,

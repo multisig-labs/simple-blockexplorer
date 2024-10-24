@@ -24,7 +24,7 @@ const TxViewFull: FC<{tx: TxType}> = ({tx}) => {
     ['Hash', <Text key="hash">{tx.hash}</Text>],
     [
       'From',
-      <div className="table-hash-link">
+      <div className="table-hash-link" key={tx.from}>
         <Link href={'/address/' + tx.from}>{addressToKnownAddress(tx.from)}</Link>
         <ClipboardCopyButton str={tx.from} />
       </div>,
@@ -32,7 +32,7 @@ const TxViewFull: FC<{tx: TxType}> = ({tx}) => {
     [
       'To',
       tx.to ? (
-        <div className="table-hash-link">
+        <div className="table-hash-link" key={tx.to}>
           <Link href={'/address/' + tx.to}>{addressToKnownAddress(tx.to)}</Link>
           <ClipboardCopyButton str={tx.to} />
         </div>
@@ -43,14 +43,14 @@ const TxViewFull: FC<{tx: TxType}> = ({tx}) => {
     ['Value', formatEther(tx.value) + ' ' + constants.symbolEth],
     [
       'Block Hash',
-      <div className="table-hash-link">
+      <div className="table-hash-link" key={tx.blockHash}>
         <Link href={'/block/' + tx.blockHash}>{tx.blockHash}</Link>
         <ClipboardCopyButton str={tx.blockHash} />
       </div>,
     ],
     [
       'Block Number',
-      <div className="table-hash-link">
+      <div className="table-hash-link" key={tx.blockNumber}>
         <Link href={'/block/' + tx.blockNumber}>{tx.blockNumber}</Link>
       </div>,
     ],

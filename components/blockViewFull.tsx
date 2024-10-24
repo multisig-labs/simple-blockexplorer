@@ -17,7 +17,7 @@ const BlockViewFull: FC<{block: BlockType}> = ({block}) => {
     ['Size', block.size],
     [
       'Parent Hash',
-      <div className="table-hash-link">
+      <div className="table-hash-link" key={block.parentHash}>
         <Link href={'/block/' + block.parentHash}>{block.parentHash}</Link>
         <ClipboardCopyButton str={block.parentHash} />
       </div>,
@@ -25,7 +25,7 @@ const BlockViewFull: FC<{block: BlockType}> = ({block}) => {
     ['Difficulty', block.difficulty.toString()],
     [
       'Miner',
-      <div className="table-hash-link">
+      <div className="table-hash-link" key={block.miner}>
         <Link href={'/address/' + block.miner}>{block.miner}</Link>
         <ClipboardCopyButton str={block.miner} />
       </div>,
