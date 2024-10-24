@@ -1,11 +1,12 @@
 import {FC, useEffect, useState} from 'react';
 import {useClientContext} from '../context/client.context';
 import {BiSearch} from 'react-icons/bi';
+import Link from 'next/dist/client/link';
 
 const SearchBar: FC = () => {
   const {client} = useClientContext();
   const [input, setInput] = useState('');
-  const [href, setHref] = useState('');
+  const [href, setHref] = useState('/');
 
   // update href dynamically to route the user on click
   useEffect(() => {
@@ -42,7 +43,13 @@ const SearchBar: FC = () => {
         onChange={event => setInput(event.currentTarget.value)}
         className="w-full p-1 pl-2 rounded-full border-primary-50 border-[1px]"
       />
-      <BiSearch className="absolute hidden md:block right-[10px] top-[10px]" />
+      <Link href={href} passHref>
+        <div className="bg-white absolute right-[5px] top-[5px] rounded-lg h-[25px] w-[35px] hover:cursor-pointer">
+          <div className="w-full h-full flex justify-center items-center">
+            <BiSearch className="" />
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };
