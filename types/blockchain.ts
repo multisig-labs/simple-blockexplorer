@@ -21,6 +21,7 @@ export type TxType = {
   transactionIndex: number;
   value: BigNumber;
   type: number;
+  timestamp?: Date;
 };
 
 export type BlockType = {

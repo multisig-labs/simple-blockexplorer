@@ -23,36 +23,45 @@ const SettingsModal: FC = () => {
   }
   return (
     <>
-      <Modal opened={opened} onClose={() => setOpened(false)} title={<Title>Settings</Title>} size="xl">
-        <Stack>
-          {hasError && <Text color="red">Could not connect to host OR the chain ID is wrong.</Text>}
-          <TextInput
-            label={<Title order={5}>RPC URL</Title>}
-            description={'Current: ' + client.URL}
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title={<div className="text-2xl font-semibold font-sans">Settings</div>}
+        size="xl"
+      >
+        <div className="flex flex-col gap-4">
+          {hasError && (
+            <div className="text-red-600 font-sans">Could not connect to host OR the chain ID is wrong.</div>
+          )}
+          <div>
+            <div className="font-bold font-sans">RPC URL</div>
+            <div className="text-xs">Current: {client.URL}</div>
+          </div>
+          <input
             placeholder="http://localhost:8545"
             value={rpcUrlInput}
             onChange={event => setRpcUrlInput(event.currentTarget.value)}
+            className="border-primary-50 border-[1px] text-sm rounded-full px-2 py-1"
           />
-          <NumberInput
+          <div className="w-full">
+            <div className="font-bold font-sans">Chain ID</div>
+            <div className="text-xs">Current: {client.chainId}</div>
+          </div>
+          <input
             disabled
-            label={<Title order={5}>Chain ID</Title>}
-            description={'Current: ' + client.chainId}
-            hideControls
-            placeholder="1"
-            min={1}
-            value={chainIdInput}
-            onChange={val => val && setChainIdInput(val)}
+            placeholder={client.chainId.toString()}
+            className="border-primary-50 border-[1px] text-grey text-sm rounded-full px-2 py-1"
           />
-          <Button onClick={handleConnect} loading={isLoading}>
+          <button className="primary-button" onClick={handleConnect}>
             Connect
-          </Button>
+          </button>
 
           <Title order={5}>Known Addresses</Title>
           <KnownAddressesTable />
-        </Stack>
+        </div>
       </Modal>
       <ActionIcon disabled={opened} onClick={() => setOpened(true)}>
-        <IconSettings stroke={1.2} size={24} />
+        <IconSettings stroke={1.2} size={24} color="#5D53CF" />
       </ActionIcon>
     </>
   );

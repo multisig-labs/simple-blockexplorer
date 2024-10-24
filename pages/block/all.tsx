@@ -1,4 +1,4 @@
-import {Center, Loader} from '@mantine/core';
+import {Center} from '@mantine/core';
 import {NextPage} from 'next';
 import {useState} from 'react';
 import Layout from '../../components/layout';
@@ -6,6 +6,10 @@ import {BlockType} from '../../types/blockchain';
 import PaginationUnbounded from '../../components/paginationUnbounded';
 import BlockViewCompactTable from '../../components/blockViewCompact';
 import {useClientContext} from '../../context/client.context';
+import {Loader} from '../../components/Loader';
+import Link from 'next/link';
+import {FiChevronLeft} from 'react-icons/fi';
+import {BackButton} from '../../components/backButton';
 
 const BATCH_SIZE = 15;
 
@@ -25,7 +29,8 @@ const AllBlocks: NextPage = () => {
 
   return (
     <Layout>
-      {blocks ? <BlockViewCompactTable blocks={blocks} /> : <Loader />}
+      <BackButton />
+      {blocks ? <BlockViewCompactTable blocks={blocks} isShowAll={false} /> : <Loader />}
       <Center my="md">
         <PaginationUnbounded
           onChange={handlePageChange}

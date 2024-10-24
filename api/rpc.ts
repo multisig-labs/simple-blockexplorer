@@ -118,7 +118,10 @@ export class RPCClient {
 
       // add txs w.r.t limit
       if (limit > 0) {
-        ans = ans.concat((block.transactions as TxType[]).slice(0, limit)); // handles out-of-bounds even if limit > len
+        const transactions = (block.transactions as TxType[])
+          .slice(0, limit)
+          .map(tx => ({...tx, timestamp: block.timestamp}));
+        ans = ans.concat(transactions);
         limit -= numTxs;
       } else {
         break;
