@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .main-table {
-    @apply rounded-lg border border-white bg-white text-left
+    @apply rounded-lg border border-white bg-white text-left w-full
 }
 
 .table-header {
@@ -15,7 +15,7 @@
 }
 
 .table-hash-link {
-    @apply flex justify-center items-center font-mono text-primary-600
+    @apply flex items-center font-mono text-primary-600
 }
 
 .table-content {
@@ -24,4 +24,12 @@
 
 .primary-button {
     @apply bg-primary-600 text-white rounded-full w-[150px] hover:bg-primary-700
+}
+
+.white-card {
+    @apply rounded-2xl border border-[#EDEDED] bg-white p-8
+}
+
+.white-card-title {
+    @apply text-2xl font-bold mb-4
 }

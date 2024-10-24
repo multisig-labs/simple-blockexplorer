@@ -42,7 +42,7 @@ const SearchBar: FC = () => {
         onChange={event => setInput(event.currentTarget.value)}
         className="w-full p-1 rounded-full border-primary-50 border-[1px]"
       />
-      <BiSearch className="absolute right-[10px] top-[10px]" />
+      <BiSearch className="absolute hidden md:block right-[10px] top-[10px]" />
     </div>
   );
 };

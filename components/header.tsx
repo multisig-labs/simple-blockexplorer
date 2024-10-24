@@ -6,7 +6,7 @@ import SettingsModal from './settingsModal';
 const Header: FC = () => {
   return (
     <div className="flex flex-row w-full justify-center">
-      <div className="flex flex-row w-full justify-between mx-24 my-4">
+      <div className="flex flex-row w-full justify-between mx-4 lg:mx-24 my-4">
         <div className="text-2xl font-bold w-[30%] flex flex-row">
           <Link href="/">SBE 👓</Link>
         </div>

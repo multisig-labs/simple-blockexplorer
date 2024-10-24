@@ -1,4 +1,3 @@
-import {Center, Loader} from '@mantine/core';
 import type {NextPage} from 'next';
 import {useState} from 'react';
 import Layout from '../../components/layout';
@@ -6,6 +5,7 @@ import PaginationUnbounded from '../../components/paginationUnbounded';
 import TxViewCompactTable from '../../components/txViewCompact';
 import {useClientContext} from '../../context/client.context';
 import type {TxType} from '../../types/blockchain';
+import {Loader} from '../../components/Loader';
 
 const BATCH_SIZE = 15;
 
@@ -26,14 +26,14 @@ const AllTxs: NextPage = () => {
 
   return (
     <Layout>
-      {txs ? <TxViewCompactTable txs={txs} /> : <Loader />}
-      <Center my="md">
+      {txs ? <TxViewCompactTable txs={txs} isShowAll={false} /> : <Loader />}
+      <div className="flex flex-row w-full justify-center items-center">
         <PaginationUnbounded
           onChange={handlePageChange}
           disableLeft={isLoading}
           disableRight={isLoading || (txs ? txs.length < BATCH_SIZE : true)}
         />
-      </Center>
+      </div>
     </Layout>
   );
 };

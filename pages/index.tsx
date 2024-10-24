@@ -1,12 +1,11 @@
-import {Anchor, Loader, SimpleGrid, Stack, Title} from '@mantine/core';
 import type {NextPage} from 'next';
 import {useEffect, useState} from 'react';
 import Layout from '../components/layout';
 import {BlockType, TxType} from '../types/blockchain';
 import BlockViewCompactTable from '../components/blockViewCompact';
 import TxViewCompactTable from '../components/txViewCompact';
-import Link from 'next/link';
 import {useClientContext} from '../context/client.context';
+import {Loader} from '../components/Loader';
 
 const Home: NextPage = () => {
   const {client, updateClient} = useClientContext();
@@ -28,11 +27,9 @@ const Home: NextPage = () => {
   return (
     <Layout>
       {latestBlocks == undefined || latestTxs == undefined ? (
-        <div className="flex h-[80vh] flex-col items-center justify-center">
-          <div className="text-2xl font-bold">Loading...</div>
-        </div>
+        <Loader />
       ) : (
-        <div className="mt-16 grid grid-cols-1 gap-24 mx-24">
+        <div className=" grid grid-cols-1 gap-8 lg:gap-24 ">
           <div className="flex flex-col justify-center gap-8">
             <BlockViewCompactTable blocks={latestBlocks} />
           </div>
