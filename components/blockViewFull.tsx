@@ -38,7 +38,7 @@ const BlockViewFull: FC<{block: BlockType}> = ({block}) => {
   ];
   return (
     <div>
-      <BackButton path="/block/all" />
+      <BackButton />
       <div className="white-card">
         <div className="white-card-title">Block</div>
         <div className="w-full overflow-x-auto overflow-y-hidden">
@@ -81,7 +81,7 @@ const BlockViewFull: FC<{block: BlockType}> = ({block}) => {
                   <div className="table-header-cell">Block</div>
                 </th>
                 <th>
-                  <div className="table-header-cell">Time</div>
+                  <div className="table-header-cell">Timestamp</div>
                 </th>
               </tr>
             </thead>

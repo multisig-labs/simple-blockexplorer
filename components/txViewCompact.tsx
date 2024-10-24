@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type {FC} from 'react';
 import type {TxType} from '../types/blockchain';
-import {addressToKnownAddress, truncateHex} from '../utilities';
+import {addressToKnownAddress, timeElapsedAsString, truncateHex} from '../utilities';
 import ClipboardCopyButton from './copiableString';
 
 const TxViewCompactTable: FC<{txs: TxType[]; isShowAll?: boolean}> = ({txs, isShowAll = true}) => {
@@ -25,13 +25,13 @@ const TxViewCompactTable: FC<{txs: TxType[]; isShowAll?: boolean}> = ({txs, isSh
                 <div className="table-header-cell">Block</div>
               </th>
               <th>
-                <div className="table-header-cell">Time</div>
+                <div className="table-header-cell">Timestamp</div>
               </th>
             </tr>
           </thead>
           <tbody>
             {txs.map((b, i) => (
-              <TxViewCompactRow key={i} tx={b} />
+              <TxViewCompactRow key={i} tx={b} isShowAll={isShowAll} />
             ))}
           </tbody>
         </table>
@@ -47,7 +47,7 @@ const TxViewCompactTable: FC<{txs: TxType[]; isShowAll?: boolean}> = ({txs, isSh
   );
 };
 
-const TxViewCompactRow: FC<{tx: TxType}> = ({tx}) => {
+const TxViewCompactRow: FC<{tx: TxType; isShowAll: boolean}> = ({tx, isShowAll}) => {
   return (
     <tr className="border-t">
       <td>
@@ -80,7 +80,13 @@ const TxViewCompactRow: FC<{tx: TxType}> = ({tx}) => {
         </div>
       </td>
       <td>
-        <div className="flex justify-center items-center my-2">{tx.timestamp?.toLocaleString() || '-'}</div>
+        <div className="flex justify-center items-center my-2">
+          {isShowAll
+            ? tx?.timestamp
+              ? timeElapsedAsString(tx?.timestamp)
+              : '-'
+            : tx.timestamp?.toLocaleString() || '-'}
+        </div>
       </td>
     </tr>
   );

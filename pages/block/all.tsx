@@ -29,7 +29,7 @@ const AllBlocks: NextPage = () => {
 
   return (
     <Layout>
-      <BackButton path="/" />
+      <BackButton />
       {blocks ? <BlockViewCompactTable blocks={blocks} isShowAll={false} /> : <Loader />}
       <Center my="md">
         <PaginationUnbounded

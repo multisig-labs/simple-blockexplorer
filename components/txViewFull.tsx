@@ -78,7 +78,7 @@ const TxViewFull: FC<{tx: TxType}> = ({tx}) => {
     : [['Status', 'Pending ⌛']];
   return (
     <>
-      <BackButton path="/transaction/all" />
+      <BackButton />
       <div className="white-card">
         <div className="white-card-title">Transaction</div>
         <div className="w-full overflow-x-auto overflow-y-hidden">

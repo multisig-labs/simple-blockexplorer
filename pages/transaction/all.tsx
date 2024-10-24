@@ -6,6 +6,7 @@ import TxViewCompactTable from '../../components/txViewCompact';
 import {useClientContext} from '../../context/client.context';
 import type {TxType} from '../../types/blockchain';
 import {Loader} from '../../components/Loader';
+import {BackButton} from '../../components/backButton';
 
 const BATCH_SIZE = 15;
 
@@ -22,10 +23,10 @@ const AllTxs: NextPage = () => {
       setIsLoading(false);
     });
   }
-  // console.log('client', {client});
 
   return (
     <Layout>
+      <BackButton />
       {txs ? <TxViewCompactTable txs={txs} isShowAll={false} /> : <Loader />}
       <div className="flex flex-row w-full justify-center items-center">
         <PaginationUnbounded

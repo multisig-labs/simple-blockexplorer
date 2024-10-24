@@ -1,7 +1,4 @@
-import {Anchor, Box, Group, ScrollArea, Table, Text, Title} from '@mantine/core';
-import {BigNumber, ethers} from 'ethers';
-import {formatEther, hexValue} from 'ethers/lib/utils';
-import Link from 'next/link';
+import {formatEther} from 'ethers/lib/utils';
 import {FC, ReactNode} from 'react';
 import constants from '../constants';
 import {AddrType} from '../types/blockchain';
@@ -9,45 +6,60 @@ import {addressToKnownAddress} from '../utilities';
 import CodeView from './codeView';
 import ClipboardCopyButton from './copiableString';
 
+import {FiChevronLeft} from 'react-icons/fi';
+import {BackButton} from './backButton';
+
 const AddrViewFull: FC<{addr: AddrType}> = ({addr}) => {
-  console.log(addr);
   let data: [string, ReactNode][] = [
-    ['Name', addressToKnownAddress(addr.address)],
-    ['Address', <Text key="addr">{addr.address}</Text>],
-    ['Balance', formatEther(addr.balance) + ' ' + constants.symbolEth],
+    [
+      'Name',
+      <div className="table-hash-link">
+        {addressToKnownAddress(addr.address)}
+        <ClipboardCopyButton str={addr.address} />
+      </div>,
+    ],
+    [
+      'Address',
+      <div className="table-hash-link">
+        {addr.address}
+        <ClipboardCopyButton str={addr.address} />
+      </div>,
+    ],
+    ['Balance', formatEther(addr.balance).toLocaleString() + ' ' + constants.symbolEth],
     ['Nonce', addr.nonce],
   ];
 
   return (
-    <Box
-      sx={theme => ({
-        width: theme.breakpoints.lg,
-      })}
-    >
-      <Title my="md">Address</Title>
-      <Table sx={{minWidth: '100%'}}>
-        <thead>
-          <tr>
-            <th>Attribute</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(vals => (
-            <tr key={vals[0]}>
-              <td>
-                <b>{vals[0]}</b>
-              </td>
-              <td>{vals[1]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Title my="md" order={3}>
-        Code
-      </Title>
-      <CodeView code={addr.code} />
-    </Box>
+    <div>
+      <BackButton />
+      <div className="white-card">
+        <div className="white-card-title">Address</div>
+        <div className="w-full overflow-x-auto overflow-y-hidden">
+          <table className="min-w-full">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map(vals => (
+                <tr key={vals[0]} className="border-t">
+                  <td>
+                    <b>{vals[0]}</b>
+                  </td>
+                  <td>{vals[1]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="white-card mt-8">
+        <div className="white-card-title">Code</div>
+        <CodeView code={addr.code} />
+      </div>
+    </div>
   );
 };
 
