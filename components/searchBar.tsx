@@ -40,7 +40,7 @@ const SearchBar: FC = () => {
         placeholder="address / block hash / block height / transaction hash"
         value={input}
         onChange={event => setInput(event.currentTarget.value)}
-        className="w-full p-1 rounded-full border-primary-50 border-[1px]"
+        className="w-full p-1 pl-2 rounded-full border-primary-50 border-[1px]"
       />
       <BiSearch className="absolute hidden md:block right-[10px] top-[10px]" />
     </div>
