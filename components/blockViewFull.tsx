@@ -7,26 +7,28 @@ import {BlockType, TxType} from '../types/blockchain';
 import {addressToKnownAddress, timeElapsedAsString, truncateHex} from '../utilities';
 import ClipboardCopyButton from './copiableString';
 import LinkableString from './linkableString';
+import {BackButton} from './backButton';
 
 const BlockViewFull: FC<{block: BlockType}> = ({block}) => {
   let data: [string, any][] = [
-    ['Hash', <Text key="hash">{block.hash}</Text>],
+    ['Hash', <div key={block.hash}>{block.hash}</div>],
     ['Number', block.number],
     ['Timestamp', `${block.timestamp.toLocaleString()} (${timeElapsedAsString(block.timestamp)} ago)`],
     ['Size', block.size],
     [
       'Parent Hash',
-      <LinkableString
-        key="phash"
-        href={'/block/' + block.parentHash}
-        display={block.parentHash}
-        clipboard={block.parentHash}
-      />,
+      <div className="table-hash-link" key={block.parentHash}>
+        <Link href={'/block/' + block.parentHash}>{block.parentHash}</Link>
+        <ClipboardCopyButton str={block.parentHash} />
+      </div>,
     ],
     ['Difficulty', block.difficulty.toString()],
     [
       'Miner',
-      <LinkableString key="miner" href={'/address/' + block.miner} display={block.miner} clipboard={block.miner} />,
+      <div className="table-hash-link" key={block.miner}>
+        <Link href={'/address/' + block.miner}>{block.miner}</Link>
+        <ClipboardCopyButton str={block.miner} />
+      </div>,
     ],
     ['Gas Limit', block.gasLimit.toString() + ' ' + constants.symbolGwei],
     ['Gas Used', block.gasUsed.toString() + ' ' + constants.symbolGwei],
@@ -35,75 +37,100 @@ const BlockViewFull: FC<{block: BlockType}> = ({block}) => {
     ['Transactions', block.transactions.length],
   ];
   return (
-    <Box
-      sx={theme => ({
-        width: theme.breakpoints.lg,
-      })}
-    >
-      <Title my="md">Block</Title>
-      <Table sx={{minWidth: '100%'}}>
-        <thead>
-          <tr>
-            <th>Attribute</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(vals => (
-            <tr key={vals[0]}>
-              <td>
-                <b>{vals[0]}</b>
-              </td>
-              <td>{vals[1]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Title order={2} my="md">
-        Transactions within the block
-      </Title>
-      <Table>
-        <thead>
-          <tr>
-            <th>Hash</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {block.transactions.map((tx, i) => (
-            <BlockTxViewCompactRow key={i} tx={tx} />
-          ))}
-        </tbody>
-      </Table>
-    </Box>
+    <div>
+      <BackButton />
+      <div className="white-card">
+        <div className="white-card-title">Block</div>
+        <div className="w-full overflow-x-auto overflow-y-hidden">
+          <table className="min-w-full">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map(vals => (
+                <tr key={vals[0]} className="border-b">
+                  <td>
+                    <b>{vals[0]}</b>
+                  </td>
+                  <td>{vals[1]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="white-card mt-8">
+        <div className="white-card-title">Transactions within the block</div>
+        <div className="w-full overflow-x-auto overflow-y-hidden">
+          <table className="min-w-full">
+            <thead>
+              <tr>
+                <th>
+                  <div className="table-header-cell">Hash</div>
+                </th>
+                <th>
+                  <div className="table-header-cell">From</div>
+                </th>
+                <th>
+                  <div className="table-header-cell">To</div>
+                </th>
+                <th>
+                  <div className="table-header-cell">Block</div>
+                </th>
+                <th>
+                  <div className="table-header-cell">Timestamp</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {block.transactions.map((tx, i) => (
+                <BlockTxViewCompactRow key={i} tx={tx} block={block} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   );
 };
 
-const BlockTxViewCompactRow: FC<{tx: TxType}> = ({tx}) => {
-  console.log(tx);
+const BlockTxViewCompactRow: FC<{tx: TxType; block: BlockType}> = ({tx, block}) => {
   return (
-    <tr>
+    <tr className="border-t">
       <td>
-        <LinkableString href={'/transaction/' + tx.hash} display={truncateHex(tx.hash)} clipboard={tx.hash} />
+        <div className="table-hash-link justify-center">
+          <Link href={'/transaction/' + tx.hash}>{truncateHex(tx.hash)}</Link>
+          <ClipboardCopyButton str={tx.hash} />
+        </div>
       </td>
       <td>
-        <LinkableString
-          href={'/address/' + tx.from}
-          display={addressToKnownAddress(tx.from, true)}
-          clipboard={tx.from}
-        />
+        <div className="table-hash-link justify-center">
+          <Link href={'/address/' + tx.from}>{addressToKnownAddress(tx.from, true)}</Link>
+          <ClipboardCopyButton str={tx.from} />
+        </div>
       </td>
       <td>
         {tx.to ? (
-          <LinkableString href={'/address/' + tx.to} display={addressToKnownAddress(tx.to, true)} clipboard={tx.to} />
+          <div className="table-hash-link justify-center">
+            <Link href={'/address/' + tx.to}>{addressToKnownAddress(tx.to, true)}</Link>
+            <ClipboardCopyButton str={tx.to} />
+          </div>
         ) : (
-          '📝 Creation'
+          <div className="table-content">📝 Creation</div>
         )}
       </td>
       <td>
-        <Text>{formatEther(tx.value) + ' ' + constants.symbolEth}</Text>
+        <div className="flex justify-center items-center">
+          <div className="bg-primary-50 rounded-lg py-2 px-3 my-2">
+            <Link href={'/block/' + tx.blockNumber}>{tx.blockNumber}</Link>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div className="flex justify-center items-center my-2">{block?.timestamp?.toLocaleString() || '-'}</div>
       </td>
     </tr>
   );

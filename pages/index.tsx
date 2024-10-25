@@ -1,13 +1,11 @@
-import {Anchor, Loader, SimpleGrid, Stack, Title} from '@mantine/core';
 import type {NextPage} from 'next';
 import {useEffect, useState} from 'react';
 import Layout from '../components/layout';
 import {BlockType, TxType} from '../types/blockchain';
 import BlockViewCompactTable from '../components/blockViewCompact';
 import TxViewCompactTable from '../components/txViewCompact';
-import Link from 'next/link';
 import {useClientContext} from '../context/client.context';
-import {useRouter} from 'next/router';
+import {Loader} from '../components/Loader';
 
 const Home: NextPage = () => {
   const {client, updateClient} = useClientContext();
@@ -31,34 +29,14 @@ const Home: NextPage = () => {
       {latestBlocks == undefined || latestTxs == undefined ? (
         <Loader />
       ) : (
-        <SimpleGrid
-          cols={2}
-          spacing="lg"
-          sx={theme => ({
-            minWidth: theme.breakpoints.lg,
-          })}
-        >
-          <Stack>
+        <div className=" grid grid-cols-1 gap-8 lg:gap-16 ">
+          <div className="flex flex-col justify-center">
             <BlockViewCompactTable blocks={latestBlocks} />
-            <Link href={'/block/all'} passHref>
-              <Anchor>
-                <Title order={4} sx={{textAlign: 'center'}}>
-                  See all Blocks
-                </Title>
-              </Anchor>
-            </Link>
-          </Stack>
-          <Stack>
+          </div>
+          <div className="flex flex-col">
             <TxViewCompactTable txs={latestTxs} />
-            <Link href={'/transaction/all'} passHref>
-              <Anchor>
-                <Title order={4} sx={{textAlign: 'center'}}>
-                  See all Transactions
-                </Title>
-              </Anchor>
-            </Link>
-          </Stack>
-        </SimpleGrid>
+          </div>
+        </div>
       )}
     </Layout>
   );

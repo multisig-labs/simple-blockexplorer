@@ -1,4 +1,3 @@
-import {Loader, Title} from '@mantine/core';
 import {NextPage} from 'next';
 import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
@@ -6,6 +5,7 @@ import AddrViewFull from '../../components/addrViewFull';
 import Layout from '../../components/layout';
 import {useClientContext} from '../../context/client.context';
 import {AddrType} from '../../types/blockchain';
+import {Loader} from '../../components/Loader';
 
 const Address: NextPage = () => {
   const router = useRouter();

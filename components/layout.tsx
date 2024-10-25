@@ -1,17 +1,15 @@
-import {Container} from '@mantine/core';
 import type {FC, ReactNode} from 'react';
-import styles from '../styles/layout.module.scss';
 import Header from './header';
+import {Footer} from './footer';
 
 const Layout: FC<{
   children: ReactNode;
 }> = ({children}) => {
   return (
-    <div className={styles['layout']}>
+    <div className="flex flex-col h-full w-full justify-center">
       <Header />
-      <Container size="xl">{children}</Container>
-      {/* <div style={{flexGrow: 1}} />
-      <Footer /> */}
+      <div className="w-full min-h-screen px-4 lg:px-24 mt-16">{children}</div>
+      <Footer />
     </div>
   );
 };

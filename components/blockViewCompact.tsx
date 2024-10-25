@@ -1,58 +1,72 @@
-import {Anchor, Button, Group, Table, Title} from '@mantine/core';
 import Link from 'next/link';
 import {FC} from 'react';
 import {BlockType} from '../types/blockchain';
 import {timeElapsedAsString, truncateHex} from '../utilities';
 import ClipboardCopyButton from './copiableString';
 
-const BlockViewCompactTable: FC<{blocks: BlockType[]}> = ({blocks}) => {
+const BlockViewCompactTable: FC<{blocks: BlockType[]; isShowAll?: boolean}> = ({blocks, isShowAll = true}) => {
   return (
-    <Table verticalSpacing={3} highlightOnHover captionSide="top" fontSize="lg">
-      <caption>
-        <Title order={3}>Blocks</Title>
-      </caption>
-      <thead>
-        <tr>
-          <th>Block</th>
-          <th>Hash</th>
-          <th>Miner</th>
-          <th>Timestamp</th>
-        </tr>
-      </thead>
-      <tbody>
-        {blocks.map((b, i) => (
-          <BlockViewCompactRow key={i} block={b} />
-        ))}
-      </tbody>
-    </Table>
+    <div className="w-full flex flex-col justify-center main-table py-4">
+      <div className="w-full text-center font-bold text-xl">Blocks</div>
+      <div className="w-full overflow-x-auto overflow-y-hidden">
+        <table className="main-table  my-4">
+          <thead className="table-header">
+            <tr>
+              <th>
+                <div className="table-header-cell">Block</div>
+              </th>
+              <th>
+                <div className="table-header-cell">Hash</div>
+              </th>
+              <th>
+                <div className="table-header-cell">Miner</div>
+              </th>
+              <th>
+                <div className="table-header-cell">Timestamp</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {blocks.map((b, i) => (
+              <BlockViewCompactRow key={i} block={b} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {isShowAll && (
+        <div className="text-lg text-primary-600 text-center font-bold">
+          <Link href={'/block/all'}>See all Blocks</Link>
+        </div>
+      )}
+    </div>
   );
 };
 
 const BlockViewCompactRow: FC<{block: BlockType}> = ({block}) => {
   return (
-    <tr>
-      <td>
-        <Link href={'/block/' + block.number} passHref>
-          <Button variant="light">{block.number}</Button>
-        </Link>
+    <tr className="border-t">
+      <td className="table-content">
+        <div className="bg-primary-50 rounded-lg py-2 px-3 my-2">
+          <Link href={'/block/' + block.number}>{block.number}</Link>
+        </div>
       </td>
       <td>
-        <Group>
-          <Link href={'/block/' + block.hash} passHref>
-            <Anchor>{truncateHex(block.hash)}</Anchor>
-          </Link>
+        <div className="table-hash-link justify-center">
+          <Link href={'/block/' + block.hash}>{truncateHex(block.hash)}</Link>
           <ClipboardCopyButton str={block.hash} />
-        </Group>
+        </div>
       </td>
       <td>
-        <Group>
+        <div className="table-hash-link justify-center">
           <Link href={'/address/' + block.miner} passHref>
-            <Anchor>{truncateHex(block.miner)}</Anchor>
+            {truncateHex(block.miner)}
           </Link>
           <ClipboardCopyButton str={block.miner} />
-        </Group>
+        </div>
       </td>
-      <td>{timeElapsedAsString(block.timestamp) + ' ago'}</td>
+      <td>
+        <div className="table-content">{timeElapsedAsString(block.timestamp) + ' ago'}</div>
+      </td>
     </tr>
   );
 };

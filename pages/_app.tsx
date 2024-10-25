@@ -6,6 +6,7 @@ import {MantineProvider, ColorScheme, ColorSchemeProvider} from '@mantine/core';
 import {CookieValueTypes} from 'cookies-next/lib/types';
 import {getCookie, setCookies} from 'cookies-next';
 import RpcWrapper from './RpcWrapper';
+import 'styles/globals.css';
 
 function App(props: AppProps & {colorScheme: ColorScheme}) {
   const {Component, pageProps} = props;
@@ -27,7 +28,7 @@ function App(props: AppProps & {colorScheme: ColorScheme}) {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col h-full w-full justify-center bg-[#F8F9FB]">
       <Head>
         <title>Simple Block-Explorer</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
@@ -41,8 +42,8 @@ function App(props: AppProps & {colorScheme: ColorScheme}) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider
+      {/* <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}> */}
+      {/* <MantineProvider
           withGlobalStyles
           withNormalizeCSS
           theme={{
@@ -63,15 +64,15 @@ function App(props: AppProps & {colorScheme: ColorScheme}) {
             primaryColor: 'indigo',
             loader: 'dots',
           }}
-        >
-          <ClientContextWrapper>
-            <RpcWrapper>
-              <Component {...pageProps} />
-            </RpcWrapper>
-          </ClientContextWrapper>
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </>
+        > */}
+      <ClientContextWrapper>
+        <RpcWrapper>
+          <Component {...pageProps} />
+        </RpcWrapper>
+      </ClientContextWrapper>
+      {/* </MantineProvider>
+      </ColorSchemeProvider> */}
+    </div>
   );
 }
 

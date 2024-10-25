@@ -1,13 +1,12 @@
-import {TextInput, ActionIcon} from '@mantine/core';
-import Link from 'next/link';
 import {FC, useEffect, useState} from 'react';
-import {IconSearch} from '@tabler/icons';
 import {useClientContext} from '../context/client.context';
+import {BiSearch} from 'react-icons/bi';
+import Link from 'next/dist/client/link';
 
 const SearchBar: FC = () => {
   const {client} = useClientContext();
   const [input, setInput] = useState('');
-  const [href, setHref] = useState('');
+  const [href, setHref] = useState('/');
 
   // update href dynamically to route the user on click
   useEffect(() => {
@@ -35,22 +34,23 @@ const SearchBar: FC = () => {
   }, [input]);
 
   const isDisabled = href == '';
-  // console.log(href);
 
   return (
-    <TextInput
-      sx={{width: '60%'}}
-      placeholder="address / block hash / block height / transaction hash"
-      value={input}
-      onChange={event => setInput(event.currentTarget.value)}
-      rightSection={
-        <Link href={href} passHref>
-          <ActionIcon disabled={isDisabled}>
-            <IconSearch size={18} />
-          </ActionIcon>
-        </Link>
-      }
-    />
+    <div className="relative w-[60%]">
+      <input
+        placeholder="address / block hash / block height / transaction hash"
+        value={input}
+        onChange={event => setInput(event.currentTarget.value)}
+        className="w-full p-1 pl-2 rounded-full border-primary-50 border-[1px]"
+      />
+      <Link href={href} passHref>
+        <div className="bg-white absolute right-[5px] top-[5px] rounded-lg h-[25px] w-[35px] hover:cursor-pointer">
+          <div className="w-full h-full flex justify-center items-center">
+            <BiSearch className="" />
+          </div>
+        </div>
+      </Link>
+    </div>
   );
 };
 
