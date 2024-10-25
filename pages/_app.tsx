@@ -1,31 +1,12 @@
 import type {AppProps} from 'next/app';
 import Head from 'next/head';
 import {ClientContextWrapper, useClientContext} from '../context/client.context';
-import {useState, useEffect} from 'react';
-import {MantineProvider, ColorScheme, ColorSchemeProvider} from '@mantine/core';
-import {CookieValueTypes} from 'cookies-next/lib/types';
-import {getCookie, setCookies} from 'cookies-next';
+
 import RpcWrapper from './RpcWrapper';
 import 'styles/globals.css';
 
-function App(props: AppProps & {colorScheme: ColorScheme}) {
+function App(props: AppProps) {
   const {Component, pageProps} = props;
-
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
-
-  const toggleColorScheme = (value?: ColorScheme) => {
-    const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
-    setColorScheme(nextColorScheme);
-    setCookies('mantine-color-scheme', nextColorScheme, {maxAge: 60 * 60 * 24 * 30});
-  };
-
-  // decide color scheme on mount
-  useEffect(() => {
-    const color: CookieValueTypes = getCookie('mantine-color-scheme');
-    if (!color) {
-      setColorScheme('light');
-    } else setColorScheme(color.toString() as 'light' | 'dark');
-  }, []);
 
   return (
     <div className="flex flex-col h-full w-full justify-center bg-[#F8F9FB]">
@@ -41,37 +22,11 @@ function App(props: AppProps & {colorScheme: ColorScheme}) {
         <meta name="msapplication-TileColor" content="#00aba9" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-
-      {/* <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}> */}
-      {/* <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{
-            globalStyles: theme => ({
-              a: {
-                color: 'inherit',
-                textDecoration: 'none',
-              },
-              '*': {
-                boxSizing: 'border-box',
-              },
-              html: {
-                padding: 0,
-                margin: 0,
-              },
-            }),
-            colorScheme,
-            primaryColor: 'indigo',
-            loader: 'dots',
-          }}
-        > */}
       <ClientContextWrapper>
         <RpcWrapper>
           <Component {...pageProps} />
         </RpcWrapper>
       </ClientContextWrapper>
-      {/* </MantineProvider>
-      </ColorSchemeProvider> */}
     </div>
   );
 }

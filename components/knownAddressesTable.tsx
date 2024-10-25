@@ -1,10 +1,8 @@
-import {Table} from '@mantine/core';
 import type {FC} from 'react';
 import constants from '../constants';
 import ClipboardCopyButton from './copiableString';
 
 const KnownAddressesTable: FC = () => {
-  // TODO: add addition & deletion to the table dynamically
   return (
     <table>
       <tbody>

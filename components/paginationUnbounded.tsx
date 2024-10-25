@@ -1,6 +1,5 @@
-import {ActionIcon, Group, Text} from '@mantine/core';
-import {IconArrowLeft, IconArrowRight} from '@tabler/icons';
 import {FC, useEffect, useState} from 'react';
+import {FiChevronLeft, FiChevronRight} from 'react-icons/fi';
 
 const PaginationUnbounded: FC<{onChange: (page: number) => void; disableLeft: boolean; disableRight: boolean}> = ({
   onChange,
@@ -12,15 +11,15 @@ const PaginationUnbounded: FC<{onChange: (page: number) => void; disableLeft: bo
   useEffect(() => onChange(page), [page]);
 
   return (
-    <Group>
-      <ActionIcon onClick={() => setPage(page - 1)} disabled={page == 1 || disableLeft}>
-        <IconArrowLeft size={24} />
-      </ActionIcon>
-      <Text>{page}</Text>
-      <ActionIcon onClick={() => setPage(page + 1)} disabled={disableRight}>
-        <IconArrowRight size={24} />
-      </ActionIcon>
-    </Group>
+    <div className="flex flex-row gap-2">
+      <button onClick={() => setPage(page - 1)} disabled={page == 1 || disableLeft}>
+        <FiChevronLeft size={24} />
+      </button>
+      <div>{page}</div>
+      <button onClick={() => setPage(page + 1)} disabled={disableRight}>
+        <FiChevronRight size={24} />
+      </button>
+    </div>
   );
 };
 
