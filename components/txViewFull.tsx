@@ -112,8 +112,10 @@ const TxViewFull: FC<{tx: TxType}> = ({tx}) => {
         </div>
       </div>
       <div className="white-card mt-8">
-        <div className="white-card-title flex flex-row items-center gap-2">
-          Transaction Data <ClipboardCopyButton str={tx.input} />
+        <div className="white-card-title flex flex-col md:flex-row items-center gap-2">
+          <div className="flex flex-row">
+            Transaction Data <ClipboardCopyButton str={tx.input} />
+          </div>
           <select
             className="select w-[160px] h-[25px] border-primary-50 border-[1px] min-h-[25px] max-h-[45px] max-w-xs focus:border-primary-50 focus:border-[1px]"
             onChange={event => setValue(event.target.value as ViewType)}
