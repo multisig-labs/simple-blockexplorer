@@ -1,12 +1,9 @@
-import {Anchor, Box, Text, Title, Table, Group, useMantineTheme} from '@mantine/core';
-import {formatEther} from 'ethers/lib/utils';
 import Link from 'next/link';
 import {FC} from 'react';
 import constants from '../constants';
 import {BlockType, TxType} from '../types/blockchain';
 import {addressToKnownAddress, timeElapsedAsString, truncateHex} from '../utilities';
 import ClipboardCopyButton from './copiableString';
-import LinkableString from './linkableString';
 import {BackButton} from './backButton';
 
 const BlockViewFull: FC<{block: BlockType}> = ({block}) => {

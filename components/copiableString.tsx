@@ -1,17 +1,28 @@
-import {ActionIcon} from '@mantine/core';
-import {useClipboard} from '@mantine/hooks';
-import type {FC} from 'react';
-import {IconCopy} from '@tabler/icons';
+import {useState, type FC} from 'react';
+import {BiCopy, BiSolidCopy} from 'react-icons/bi';
 
 const ClipboardCopyButton: FC<{
   str: string;
 }> = ({str}) => {
-  const clipboard = useClipboard({timeout: 500});
+  const [copied, setCopied] = useState(false);
 
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 500);
+    } catch (error) {
+      console.error('Failed to copy text: ', error);
+    }
+  };
   return (
-    <ActionIcon variant="transparent" onClick={() => clipboard.copy(str)} disabled={clipboard.copied} size="xs">
-      <IconCopy />
-    </ActionIcon>
+    <button onClick={() => copyToClipboard(str)} className="p-1 bg-transparent border-none focus:outline-none">
+      {copied ? (
+        <BiSolidCopy size={20} className="text-primary-600 cursor-wait" />
+      ) : (
+        <BiCopy className="cursor-pointer text-grey-200" size={20} />
+      )}
+    </button>
   );
 };
 

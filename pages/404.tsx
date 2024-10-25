@@ -1,4 +1,3 @@
-import {Title} from '@mantine/core';
 import Layout from '../components/layout';
 import Head from 'next/head';
 import {NextPage} from 'next';

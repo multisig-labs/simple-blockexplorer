@@ -33,3 +33,22 @@
 .white-card-title {
     @apply text-2xl font-bold mb-4
 }
+
+.mantine-Select-input {
+    border-radius: 24px;
+    border: 1px solid #C7C2FF;
+}
+
+.mantine-Select-input:focus {
+    border: 1px solid #C7C2FF;
+}
+
+.mantine-Select-dropdown {
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+}
+
+.mantine-Select-option:active {
+    background-color: #C7C2FF;
+}
+
