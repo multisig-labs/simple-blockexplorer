@@ -4,7 +4,6 @@ import {ClientContextWrapper, useClientContext} from '../context/client.context'
 
 import RpcWrapper from './RpcWrapper';
 import 'styles/globals.css';
-import {MantineProvider} from '@mantine/core';
 
 function App(props: AppProps) {
   const {Component, pageProps} = props;
@@ -23,13 +22,11 @@ function App(props: AppProps) {
         <meta name="msapplication-TileColor" content="#00aba9" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <MantineProvider>
-        <ClientContextWrapper>
-          <RpcWrapper>
-            <Component {...pageProps} />
-          </RpcWrapper>
-        </ClientContextWrapper>
-      </MantineProvider>
+      <ClientContextWrapper>
+        <RpcWrapper>
+          <Component {...pageProps} />
+        </RpcWrapper>
+      </ClientContextWrapper>
     </div>
   );
 }
